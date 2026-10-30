@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Nôtre · Antiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0a1626;--fg:#f1e9d8;--ac:#4f9aa3;--line:rgba(241,233,216,.18)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:#0a1626;color:#f1e9d8;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:18px}
+.blk{position:relative;background:var(--bg);color:var(--fg);--line:color-mix(in srgb,var(--fg) 22%,transparent)}
+.adm{display:none}body.admin .adm{display:inline-block}body:not(.admin) .tools{display:none}
+.tools{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:.35;transition:.2s;z-index:3}
+.blk:hover>.tools,.blk:focus-within>.tools{opacity:1}
+.tools button{display:none}
+.tools button,.tools input{background:transparent;color:inherit;border:1px solid var(--line);border-radius:3px;font:12px sans-serif;padding:3px 6px;cursor:pointer;max-width:110px}
+header{text-align:center;padding:42px 16px 30px;border-bottom:1px solid var(--line)}
+h1{font-family:Cinzel,serif;font-weight:400;letter-spacing:.35em;font-size:clamp(28px,6vw,54px);margin:0;text-transform:uppercase}
+.sub{margin-top:8px;letter-spacing:.7em;font-size:15px;color:var(--ac);text-transform:uppercase;padding-left:.7em}
+.intro-tagline{font-style:italic;font-size:20px;color:var(--fg);opacity:.9;margin-top:18px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.4}
+.layout{display:flex;min-height:70vh}
+aside{width:240px;flex:none;padding:28px 20px;border-right:1px solid var(--line)}
+aside h3{font-family:Cinzel,serif;font-weight:400;letter-spacing:.25em;font-size:13px;color:var(--ac);margin:0 0 14px}
+.cat{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);font:inherit;font-size:19px;padding:10px 2px;cursor:pointer}
+.cat.on,.cat:hover{color:var(--ac);padding-left:8px;transition:.2s}
+.cat-special{font-style:italic;margin-top:14px;border-top:1px dashed var(--line);border-bottom:1px solid var(--line);color:var(--fg)}
+.cat-special:hover,.cat-special.on{color:var(--ac)}
+.btn-curaduria{display:block;width:100%;margin-top:22px;padding:9px 12px;background:none;border:1px solid var(--ac);color:var(--ac);font:inherit;font-size:14px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-align:center;transition:.2s}
+.btn-curaduria:hover{background:var(--ac);color:#fff}
+main{flex:1;padding:24px;min-width:0}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.btn{background:var(--ac);color:#fff;border:0;padding:11px 22px;font:inherit;letter-spacing:.15em;text-transform:uppercase;font-size:14px;cursor:pointer;border-radius:2px}
+.btn.o{background:none;border:1px solid var(--ac);color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.card{border:1px solid var(--line);padding:12px}
+.card .ph{aspect-ratio:1;background:#0003 center/cover;margin-bottom:12px}
+.card h4{margin:0;font-size:24px;font-weight:400}.en{font-style:italic;opacity:.8}
+.pr{margin-top:8px;color:var(--ac);font-size:20px}.sp{font-size:15px;opacity:.75;white-space:pre-line}
+.empty{opacity:.6;font-style:italic;padding:40px 0}
+#ed{display:none;border:1px solid var(--ac);padding:20px;margin-bottom:26px}
+#ed.show{display:block}
+#ed label{display:block;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin:12px 0 4px}
+#ed input,#ed textarea,#ed select{width:100%;background:#0003;color:var(--fg);border:1px solid var(--line);padding:10px;font:inherit;font-size:18px;border-radius:2px}
+#ed textarea{min-height:140px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#drop{border:2px dashed var(--ac);padding:26px;text-align:center;cursor:pointer;color:var(--ac)}
+#drop.over{background:#4f9aa322}
+#thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#thumbs div{width:74px;height:74px;background:center/cover;position:relative}
+#thumbs b{position:absolute;top:0;right:0;background:#000a;color:#fff;cursor:pointer;padding:0 5px;font:14px sans-serif}
+#en{font-style:italic;white-space:pre-line}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:#0a1626;color:#f1e9d8;border:1px solid var(--ac);max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative;line-height:1.6}
+.modal-box h2{font-family:Cinzel,serif;font-weight:400;margin-top:0;color:var(--ac);font-size:26px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--ac);color:var(--ac);font-size:18px;padding:4px 10px;cursor:pointer}
+@media(max-width:720px){.layout{flex-direction:column}aside{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:14px}aside nav{display:flex;gap:6px;overflow-x:auto}.cat{width:auto;white-space:nowrap;border:1px solid var(--line);padding:6px 14px;font-size:16px}.cat-special{margin-top:0}.btn-curaduria{margin-top:12px}.main{padding:14px}.two{grid-template-columns:1fr}}
+</style></head><body>
+<header class="blk" id="b-head" data-b="head">
+<div class="tools"></div>
+<svg role="img" aria-label="Le Nôtre Antiques" viewBox="0 0 400 400" style="width:min(210px,58vw);height:auto;display:block;margin:0 auto"><circle cx="200" cy="200" r="198" fill="none"/><g fill="none" stroke="#d8b4a0"><circle cx="200" cy="200" r="190" stroke-width="3"/><circle cx="200" cy="200" r="179" stroke-width="1.5"/><g stroke-width="2.5"><rect x="163" y="92" width="74" height="58"/><path d="M163 150V104Q200 88 200 128Q200 88 237 104V150M176 150V108M224 150V108M188 150V118M212 150V118"/></g></g><g fill="#d8b4a0" text-anchor="middle" font-family="'Libre Caslon Text','Cormorant Garamond',Georgia,serif"><text x="200" y="232" font-size="54" font-weight="500" letter-spacing="1">LE NÔTRE</text><text x="200" y="272" font-size="22" letter-spacing="2">-ANTIQUES-</text></g></svg>
+<div class="intro-tagline">Galería de autor dedicada al rescate, restauración y curaduría de patrimonio y piezas de colección.</div>
+<div id="pre" style="margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div></header>
+<div class="layout">
+<aside class="blk" id="b-side" data-b="side"><div class="tools"></div>
+<h3 data-f="side">CATEGORÍAS</h3><nav id="cats"></nav>
+<button class="btn-curaduria" onclick="openCuraduria()">La Curaduría</button>
+<button class="btn o adm" style="margin-top:16px;padding:7px 12px;font-size:12px" onclick="addCat()">+ Agregar categoría</button><div class="adm"><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="editCat()">Renombrar categoría</button><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="delCat()">Borrar categoría</button><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="addSub()">+ Subcategoría</button><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="delSub()">Borrar subcategoría</button><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="setContact()">Contacto (WhatsApp y mail)</button><button class="btn o" style="display:block;margin-top:8px;padding:7px 12px;font-size:12px" onclick="setFx()">Cotización del dólar</button></div></aside>
+<main class="blk" id="b-main" data-b="main"><div class="tools"></div>
+<div class="bar"><button class="btn adm" onclick="openEd()">+ Nueva pieza</button><button class="btn o adm" onclick="$('fd').click()">Importar carpeta</button><input type="file" id="fd" webkitdirectory multiple hidden><button class="btn o adm" onclick="$('ff').click()">Importar fotos</button><input type="file" id="ff" accept="image/*" multiple hidden><div style="flex:1;min-width:210px;display:flex;align-items:center;gap:6px;border:4px double var(--ac);padding:3px 4px 3px 12px"><input id="q" type="search" placeholder="Buscar: plata 900, bronce…" style="flex:1;min-width:0;background:transparent;color:var(--fg);border:0;font:inherit;font-weight:500;font-size:17px;padding:6px 2px;outline:0"><button class="btn o" id="qb" style="padding:6px 14px;font-size:12px;border-width:1px;border-radius:0">Buscar</button></div><span id="st" style="opacity:.6;font-size:14px"></span></div>
+<section id="ed"><div id="drop">📷 Arrastrá las fotos acá o tocá para elegirlas / sacarlas con el celular</div>
+<input type="file" id="fi" accept="image/*" multiple hidden><div id="thumbs"></div>
+<label>Nombre de la pieza</label><input id="nm">
+<label>Categoría</label><div style="display:flex;gap:8px"><select id="ct"></select><button type="button" class="btn o" style="white-space:nowrap;padding:6px 14px" onclick="addCat(true)">+ Agregar</button></div><label>Subcategoría</label><div style="display:flex;gap:8px"><select id="sb"></select><button type="button" class="btn o" style="white-space:nowrap;padding:6px 14px" onclick="addSub($('ct').value)">+ Agregar</button></div>
+<label>Estado</label><select id="stt"><option value="">Disponible</option><option value="reservado">Reservado</option><option value="vendido">Vendido</option></select><label>Descripción (medidas, material, marca, época…)</label><textarea id="ds" placeholder="Época, origen, estado, historia…"></textarea>
+<textarea id="sp" hidden></textarea><label>Palabras clave (opcional, separadas por coma)</label><input id="kw" placeholder="plata 925, siglo XIX, Dresden…">
+<div class="two"><div><label>Precio ARS $</label><input id="pa" inputmode="numeric"></div><div><label>Precio USD u$s (se calcula solo con la cotización)</label><input id="pu" inputmode="numeric"></div></div>
+<label>English (traducción automática)</label><div id="en" class="en">—</div>
+<div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="sv" onclick="save()">Guardar pieza</button><button class="btn o" onclick="tr()">Traducir</button><button class="btn o" onclick="closeEd()">Cancelar</button></div></section>
+<div class="grid" id="grid"></div></main></div>
+
+<div id="modalCuraduria" class="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeCuraduria()">×</button>
+    <h2>El Ojo Detrás de Le Nôtre</h2>
+    <p>Detrás de <strong>Le Nôtre Antiques</strong> existe una visión personal guiada por la pasión por el rescate, el rigor técnico y el respeto absoluto por la historia de cada objeto.</p>
+    <p>Como curadora y restauradora independiente, cada pieza que ingresa a la galería —desde porcelanas europeas e instrumentos de escritura hasta patrimonio textil y accesorios de las firmas más icónicas del mundo— es seleccionada, investigada y acondicionada de manera individual. El trabajo se realiza bajo un estándar intransigente: devolverle a la materia su estructura, su esplendor original y la dignidad de su legado.</p>
+    <p>No se trata simplemente de reunir antigüedades; el propósito de esta galería es custodiar fragmentos de historia y devolverlos a la vida con sensibilidad estética y precisión analítica. Le Nôtre Antiques es el resultado de un compromiso solitario con la excelencia, donde el ojo clínico y el amor por el detalle se unen para ofrecer a coleccionistas exigentes piezas únicas, autenticadas y listas para encontrar un nuevo lugar en espacios con carácter.</p>
+  </div>
+</div>
+
+<script>
+const COMBOS=[["#0a1626","#e6c7bf","#c98f8a"]];const _OLD=[["#0a1626","#f1e9d8","#4f9aa3"],["#0a1626","#e6c7bf","#c98f8a"],["#0b1d33","#e8e2d0","#7fb7be"]];
+const PRE=[];
+function preset(i){["head","side","main"].forEach(k=>{(S.blk[k]=S.blk[k]||{}).c=i;applyB(k)});document.body.style.background=COMBOS[i][0];persist()}
+const FONTS=["Cormorant Garamond","Cinzel","Playfair Display","Bodoni Moda","Italiana","Marcellus","Cormorant SC","Tenor Sans","Cinzel Decorative","EB Garamond","Libre Caslon Text"];
+let S={cats:["Vajilla y Porcelana","Escultura y Arte","Pintura","Joyería y Relojería","Plata y Metales Nobles","Cristal y Vidrio de Colección","Gabinete de Curiosidades"],blk:{}},P=[],cur=null,curSub=null,imgs=[],editId=null,db=null,assets=null,sample=null,DEF={head:0,side:0,main:0};
+const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const loaded=new Set(["Cormorant Garamond","Cinzel"]);
+function loadFont(f){if(loaded.has(f))return;loaded.add(f);const l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+f.trim().replace(/ /g,"+")+"&display=swap";document.head.appendChild(l)}
+function applyB(k){const b=$("b-"+k),s=S.blk[k]||{},c=COMBOS[s.c??DEF[k]]||COMBOS[0];b.style.setProperty("--bg",c[0]);b.style.setProperty("--fg",c[1]);b.style.setProperty("--ac",c[2]);
+ if(s.f){loadFont(s.f);b.style.fontFamily="'"+s.f+"',serif";b.querySelectorAll("[data-f],h1,.cat,h3").forEach(e=>e.style.fontFamily="'"+s.f+"',serif")}}
+function tools(){document.querySelectorAll(".blk").forEach(b=>{const k=b.dataset.b,t=b.querySelector(".tools");
+ t.innerHTML='<button title="Cambiar colores">🎨</button><input list="fl" placeholder="Tipografía…" title="Elegí o escribí cualquier fuente de Google Fonts">';
+ t.children[0].onclick=()=>{const s=S.blk[k]=S.blk[k]||{};s.c=(((s.c??DEF[k])%COMBOS.length)+1)%COMBOS.length;applyB(k);persist()};
+ t.children[1].onchange=e=>{const s=S.blk[k]=S.blk[k]||{};s.f=e.target.value;applyB(k);persist()}});
+ $("b-head").insertAdjacentHTML("beforeend",'<datalist id="fl">'+FONTS.map(f=>"<option>"+f).join("")+"</datalist>");}
+async function persist(){try{await db?.doc("config/site").set({data:JSON.stringify(S)})}catch(e){}}
+
+function openCuraduria(){$("modalCuraduria").style.display="flex"}
+function closeCuraduria(){$("modalCuraduria").style.display="none"}
+
+function renderCats(){
+  S.subs=S.subs||{};
+  const regularCats = S.cats.filter(c => c !== "Gabinete de Curiosidades");
+  const hasGabinete = S.cats.includes("Gabinete de Curiosidades");
+  
+  let html = `<button class="cat ${cur===null?'on':''}" data-c="Todo">Todo</button>`;
+  
+  regularCats.forEach(c => {
+    const on = cur === c;
+    html += `<button class="cat ${on&&!curSub?'on':''}" data-c="${esc(c)}" title="Doble clic para renombrar">${esc(c)}</button>`;
+    if(on && c !== 'Todo'){
+      (S.subs[c]||[]).forEach(s => {
+        html += `<button class="cat ${curSub===s?'on':''}" style="padding-left:22px;font-size:16px" data-c="${esc(c)}" data-s="${esc(s)}">› ${esc(s)}</button>`;
+      });
+    }
+  });
+
+  if(hasGabinete){
+    const on = cur === "Gabinete de Curiosidades";
+    html += `<button class="cat cat-special ${on?'on':''}" data-c="Gabinete de Curiosidades" title="Doble clic para renombrar">Gabinete de Curiosidades</button>`;
+  }
+
+  $("cats").innerHTML = html;
+  
+  $("cats").querySelectorAll(".cat").forEach(b => {
+    b.onclick = () => {
+      cur = b.dataset.c === "Todo" ? null : b.dataset.c;
+      curSub = b.dataset.s || null;
+      renderCats();
+      renderGrid();
+    };
+    b.ondblclick = () => {
+      if(document.body.classList.contains("admin") && b.dataset.c !== "Todo"){
+        renameCategoryDirect(b.dataset.c, b.dataset.s);
+      }
+    };
+  });
+  
+  const v = $("ct").value;
+  $("ct").innerHTML = S.cats.map(c => `<option>${esc(c)}</option>`).join("");
+  if(S.cats.includes(v)) $("ct").value = v;
+  fillSub();
+}
+
+async function renameCategoryDirect(cat, sub){
+  if(sub){
+    const n = await dlg(`Nuevo nombre para la subcategoría "${sub}":`, true);
+    if(n && n.trim()){
+      const idx = S.subs[cat].indexOf(sub);
+      if(idx > -1) S.subs[cat][idx] = n.trim();
+      P.forEach(p => { if(p.cat === cat && p.sub === sub) p.sub = n.trim(); });
+      if(curSub === sub) curSub = n.trim();
+      renderCats(); renderGrid(); persist();
+    }
+  } else {
+    const n = await dlg(`Nuevo nombre para la categoría "${cat}":`, true);
+    if(n && n.trim()){
+      const idx = S.cats.indexOf(cat);
+      if(idx > -1) S.cats[idx] = n.trim();
+      if(S.subs[cat]){ S.subs[n.trim()] = S.subs[cat]; delete S.subs[cat]; }
+      P.forEach(p => { if(p.cat === cat) p.cat = n.trim(); });
+      if(cur === cat) cur = n.trim();
+      renderCats(); renderGrid(); persist();
+    }
+  }
+}
+
+async function editCat(){
+  const c = await dlg("¿Qué categoría querés renombrar?", false, S.cats);
+  if(!c) return;
+  renameCategoryDirect(c, null);
+}
+
+function fillSub(sel){S.subs=S.subs||{};const l=S.subs[$("ct").value]||[];$("sb").innerHTML='<option value="">(sin subcategoría)</option>'+l.map(s=>`<option>${esc(s)}</option>`).join("");if(sel)$("sb").value=sel}
+$("ct").onchange=()=>fillSub();
+async function addCat(sel){const n=await dlg("Nombre de la nueva categoría:",true);if(n&&n.trim()){S.cats.push(n.trim());renderCats();persist();if(sel){$("ct").value=n.trim();fillSub()}}}
+async function addSub(cat){cat=cat||cur||await dlg("¿En qué categoría?",false,S.cats);if(!cat)return;const n=await dlg("Nombre de la subcategoría de "+cat+":",true);if(n&&n.trim()){S.subs=S.subs||{};(S.subs[cat]=S.subs[cat]||[]).push(n.trim());renderCats();persist();if($("ed").classList.contains("show")&&$("ct").value===cat)fillSub(n.trim())}}
+async function delCat(){const c=await dlg("¿Qué categoría querés borrar?",false,S.cats);if(!c)return;const dead=P.filter(p=>p.cat===c);if(!await dlg("¿Seguro que querés borrar «"+c+"»? También se van a borrar sus "+dead.length+" piezas y no se puede deshacer."))return;S.cats=S.cats.filter(x=>x!==c);P=P.filter(p=>p.cat!==c);dead.forEach(p=>{try{db?.doc("products/"+p.id).delete().catch(()=>{})}catch(e){}});delete (S.subs||{})[c];if(cur===c){cur=null;curSub=null}renderCats();renderGrid();persist()}
+async function delSub(){const all=[];S.cats.forEach(c=>((S.subs||{})[c]||[]).forEach(s=>all.push(c+" › "+s)));if(!all.length){await dlg("Todavía no hay subcategorías.");return}const v=await dlg("¿Qué subcategoría querés borrar?",false,all);if(!v)return;const [c,s]=v.split(" › ");S.subs[c]=S.subs[c].filter(x=>x!==s);if(curSub===s)curSub=null;renderCats();renderGrid();persist()}
+
+function dlg(msg,inp,opts){return new Promise(r=>{const o=document.createElement("div");o.style.cssText="position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;z-index:99;padding:16px";o.innerHTML=`<div style="background:#0a1626;color:#e6c7bf;border:1px solid #c98f8a;padding:22px;max-width:380px;width:100%"><div style="font-size:20px;margin-bottom:12px">${esc(msg)}</div>${opts?'<select style="width:100%;padding:10px;font:inherit;font-size:18px;background:#0a1626;color:inherit;border:1px solid #c98f8a">'+opts.map(o=>'<option>'+esc(o)+'</option>').join("")+'</select>':""}${inp?'<input style="width:100%;padding:10px;font:inherit;font-size:18px;background:#0003;color:inherit;border:1px solid #c98f8a">':""}<div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end"><button class="btn o" data-x="0" style="padding:7px 16px">Cancelar</button><button class="btn" data-x="1" style="padding:7px 16px;background:#c98f8a;color:#0a1626">Aceptar</button></div></div>`;document.body.appendChild(o);const i=o.querySelector("input,select");i&&i.focus();const done=v=>{o.remove();r(v)};o.querySelectorAll("button").forEach(b=>b.onclick=()=>done(b.dataset.x==="1"?(i?i.value:true):null));i&&i.addEventListener("keydown",e=>{if(e.key==="Enter")done(i.value)})})}
+
+function renderGrid(){const l=P.filter(p=>(!cur||p.cat===cur)&&(!curSub||p.sub===curSub)&&match(p));
+ $("grid").innerHTML=l.length?l.map(p=>`<article class="card" style="${p.status==='vendido'?'opacity:.55':''}"><div class="ph" onclick="ficha('${p.id}')" style="cursor:pointer;position:relative;background-image:url('${esc((p.imgs||[])[0]||"")}')">${p.status?`<span style="position:absolute;top:8px;left:8px;background:#c98f8a;color:#0a1626;padding:2px 10px;font:12px sans-serif;letter-spacing:.1em;text-transform:uppercase">${p.status}</span>`:""}</div><div class="sp" style="opacity:.6">${esc(p.cat)}${p.sub?" › "+esc(p.sub):""}</div><h4>${esc(p.name)}</h4><div class="en">${esc(p.nameEn||"")}</div><p>${esc(p.desc)}</p><p class="en">${esc(p.descEn||"")}</p><div class="sp">${esc(p.spec)}</div><div class="pr">${p.ars?fmtArs(p.ars):""} ${usdOf(p)?" · u$s "+esc(usdOf(p))+(p.usdAuto?" aprox.":""):""}</div>${wa(p)}<div class="bar" style="margin:10px 0 0"><button class="btn o adm" style="padding:5px 12px;font-size:12px" onclick="edit('${p.id}')">Editar</button><button class="btn o adm" style="padding:5px 12px;font-size:12px" onclick="del('${p.id}')">Borrar</button></div></article>`).join(""):'<div class="empty">Aún no hay piezas en esta categoría. Tocá “Nueva pieza” para empezar.</div>'}
+function openEd(){editId=null;imgs=[];["nm","ds","sp","pa","pu"].forEach(i=>$(i).value="");$("en").textContent="—";if(cur)$("ct").value=cur;fillSub(cur?curSub:"");$("stt").value="";$("kw").value="";delete $("kw").dataset.m;delete $("pu").dataset.a;thumbs();$("ed").classList.add("show");$("ed").scrollIntoView({behavior:"smooth"})}
+function closeEd(){$("ed").classList.remove("show")}
+function edit(id){const p=P.find(x=>x.id===id);openEd();editId=id;imgs=[...(p.imgs||[])];$("nm").value=p.name;$("ct").value=p.cat;fillSub(p.sub);$("stt").value=p.status||"";$("kw").value=p.kw||"";if(p.kw)$("kw").dataset.m=1;$("ds").value=[p.desc,p.spec].filter(Boolean).join("\n");$("sp").value="";$("pa").value=p.ars||"";$("pu").value=usdOf(p)||"";if(p.usdAuto)$("pu").dataset.a=1;else delete $("pu").dataset.a;$("en").textContent=p.descEn||"—";thumbs()}
+async function del(id){if(await dlg("¿Borrar esta pieza?")){P=P.filter(p=>p.id!==id);renderGrid();try{await db?.doc("products/"+id).delete()}catch(e){}}}
+function thumbs(){const T=$("thumbs");T.innerHTML=imgs.map((u,i)=>`<div draggable="true" data-i="${i}" style="width:86px;height:86px;cursor:grab;background-image:url('${esc(u)}');${i?'':'outline:2px solid #c98f8a'}"><b onclick="imgs.splice(${i},1);thumbs()">×</b>${i?`<i onclick="mainImg(${i})" title="Hacer principal" style="position:absolute;bottom:0;left:0;right:0;background:#000a;color:#e6c7bf;font:11px sans-serif;text-align:center;cursor:pointer">★ principal</i>`:'<i style="position:absolute;bottom:0;left:0;right:0;background:#c98f8a;color:#0a1626;font:11px sans-serif;text-align:center">Principal</i>'}</div>`).join("");
+T.querySelectorAll("div").forEach(d=>{d.ondragstart=e=>{e.dataTransfer.setData("text/plain",d.dataset.i)};d.ondragover=e=>e.preventDefault();d.ondrop=e=>{e.preventDefault();const a=+e.dataTransfer.getData("text/plain"),b=+d.dataset.i;if(isNaN(a)||a===b)return;const [m]=imgs.splice(a,1);imgs.splice(b,0,m);thumbs()}})}
+function mainImg(i){const [m]=imgs.splice(i,1);imgs.unshift(m);thumbs()}
+function usdOf(p){if(p.usdAuto&&S.fx&&p.ars){const a=parseFloat(String(p.ars).replace(/\./g,"").replace(",","."));return a?Math.round(a/S.fx.rate):""}return p.usd}
+function autoUsd(){const pu=$("pu");if(!S.fx)return;if(pu.value&&!pu.dataset.a)return;const a=parseFloat($("pa").value.replace(/\./g,"").replace(",","."));pu.value=a?Math.round(a/S.fx.rate):"";pu.dataset.a=1}
+async function setFx(){const v=await dlg("Cotización oficial del dólar hoy (pesos por dólar). Ahora: "+(S.fx?S.fx.rate+" al "+S.fx.date:"sin cargar"),true);const r=parseFloat(String(v||"").replace(/\./g,"").replace(",","."));if(!r)return;S.fx={rate:r,date:new Date().toLocaleDateString("es-AR")};renderGrid();persist()}
+function fmtArs(a){const n=parseFloat(String(a).replace(/[^\d,]/g,"").replace(",","."));return isNaN(n)?esc(a):"$ "+n.toLocaleString("es-AR")+" ARS"}
+function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function match(p){const q=norm($("q").value).split(/\s+/).filter(Boolean);if(!q.length)return true;const h=norm([p.desc,p.spec,p.kw].join(" "));return q.every(w=>h.includes(w))}
+$("pa").oninput=autoUsd;$("pu").oninput=()=>{delete $("pu").dataset.a};$("kw").oninput=()=>{$("kw").dataset.m=1};$("q").oninput=()=>{if(!$("q").value)renderGrid()};$("q").onkeydown=e=>{if(e.key==="Enter")renderGrid()};$("qb").onclick=()=>renderGrid();
+function wa(p){const n=((S.contact||{}).wa||"").replace(/\D/g,"");if(!n||p.status==="vendido")return"";return `<a href="https://wa.me/${n}?text=${encodeURIComponent("Hola, me interesa: "+p.name)}" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;color:var(--ac);border:1px solid var(--ac);padding:6px 14px;font-size:14px;letter-spacing:.1em;text-decoration:none;text-transform:uppercase">Consultar por WhatsApp</a>`}
+function ficha(id){const p=P.find(x=>x.id===id);if(!p)return;const o=document.createElement("div");o.style.cssText="position:fixed;inset:0;background:#000d;z-index:98;overflow:auto;padding:16px";const im=p.imgs||[],mm=(S.contact||{}).mail;o.innerHTML=`<div style="max-width:760px;margin:auto;background:#0a1626;color:#e6c7bf;--ac:#c98f8a;border:1px solid #c98f8a;padding:18px;position:relative"><button class="btn o" style="position:absolute;top:8px;right:8px;padding:4px 12px" id="fx">×</button><img id="fi2" src="${esc(im[0]||"")}" style="width:100%;max-height:70vh;object-fit:contain;background:#0003"><div style="display:flex;gap:8px;margin:10px 0;flex-wrap:wrap">${im.map(u=>`<img class="tt" src="${esc(u)}" style="width:64px;height:64px;object-fit:cover;cursor:pointer">`).join("")}</div><h2 style="font-weight:400;margin:.2em 0">${esc(p.name)}</h2><div class="en">${esc(p.nameEn||"")}</div><p>${esc(p.desc)}</p><p class="en">${esc(p.descEn||"")}</p><div class="sp">${esc(p.spec)}</div><div class="pr">${p.ars?fmtArs(p.ars):""}${usdOf(p)?" · u$s "+esc(usdOf(p))+(p.usdAuto?" aprox.":""):""}</div>${p.usdAuto&&S.fx?`<div class="sp">Cotización oficial al ${esc(S.fx.date)}</div>`:""}${wa(p)}${mm?`<p><a style="color:#c98f8a" href="mailto:${esc(mm)}">${esc(mm)}</a></p>`:""}</div>`;document.body.appendChild(o);o.querySelectorAll(".tt").forEach(t=>t.onclick=()=>{o.querySelector("#fi2").src=t.src});o.querySelector("#fx").onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()}}
+async function setContact(){const w=await dlg("Tu número de WhatsApp con código de país, sin + ni espacios (ej: 5491112345678):",true);if(w===null)return;const m=await dlg("Tu mail de contacto (opcional):",true);S.contact={wa:w||"",mail:m||""};renderGrid();persist()}
+function shrink(f){return new Promise(r=>{const i=new Image,u=URL.createObjectURL(f);i.onload=()=>{const k=Math.min(1,1600/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);c.toBlob(b=>r(b),"image/jpeg",.86)};i.src=u})}
+async function addFiles(fs){$("st").textContent="Subiendo fotos…";for(const f of fs){if(!f.type.startsWith("image/"))continue;const b=await shrink(f);
+ try{if(assets){const a=await assets.upload(b);imgs.push(a.url)}else imgs.push(await new Promise(r=>{const x=new FileReader;x.onload=()=>r(x.result);x.readAsDataURL(b)}))}catch(e){$("st").textContent="No se pudo subir una foto";}
+ thumbs()}$("st").textContent=""}
+$("drop").onclick=()=>$("fi").click();$("fi").onchange=e=>addFiles(e.target.files);
+$("drop").ondragover=e=>{e.preventDefault();$("drop").classList.add("over")};$("drop").ondragleave=()=>$("drop").classList.remove("over");
+$("drop").ondrop=e=>{e.preventDefault();$("drop").classList.remove("over");addFiles(e.dataTransfer.files)};
+let tm;["nm","ds"].forEach(i=>$(i).addEventListener("input",()=>{clearTimeout(tm);tm=setTimeout(tr,2500)}));
+let last="",EN={};
+async function tr(){const n=$("nm").value.trim(),d=$("ds").value.trim(),s=$("sp").value.trim(),k=n+d+s;if(!sample||!k||k===last)return;last=k;$("en").textContent="Traduciendo…";
+ try{const r=await sample.json(`Traducí al inglés, con tono de casa de antigüedades de lujo. Respondé SOLO JSON {"name":"","desc":"","spec":"","kw":""} sin markdown; "kw" son entre 6 y 12 palabras clave en español sacadas del texto (material, pureza o ley, época, estilo, marca, tipo de objeto), separadas por coma. Texto: ${JSON.stringify({name:n,desc:d,spec:s})}`);EN=r;if(r.kw&&!$("kw").dataset.m)$("kw").value=Array.isArray(r.kw)?r.kw.join(", "):r.kw;$("en").textContent=(r.name?r.name+"\n":"")+(r.desc||"")}catch(e){$("en").textContent="(traducción no disponible)";last=""}}
+async function save(){const n=$("nm").value.trim();if(!n){await dlg("Poné un nombre");return}await tr();
+ const id=editId||"p"+Date.now(),p={id,name:n,cat:$("ct").value,sub:$("sb").value,status:$("stt").value,kw:$("kw").value,desc:$("ds").value,spec:$("sp").value,ars:$("pa").value,usd:$("pu").value,usdAuto:!!$("pu").dataset.a,imgs,nameEn:EN.name||"",descEn:[EN.desc,EN.spec].filter(Boolean).join("\n"),t:Date.now()};
+ const i=P.findIndex(x=>x.id===id);i<0?P.unshift(p):P[i]=p;renderGrid();closeEd();
+ try{await db?.doc("products/"+id).set(p)}catch(e){$("st").textContent="Guardado solo en esta sesión"}}
+$("pre").innerHTML=PRE.map(p=>`<button class="btn o" style="padding:6px 12px;font-size:12px;color:var(--fg);border-color:var(--line)" onclick="preset(${p[1]})">${p[0]}</button>`).join("");
+$("fd").onchange=async e=>{const fs=[...e.target.files].filter(f=>f.type.startsWith("image/"));if(!fs.length)return;if(!await dlg("Se van a importar "+fs.length+" fotos como piezas borrador. ¿Seguir?"))return;let n=0;for(const f of fs){$("st").textContent="Importando "+(++n)+" de "+fs.length+"…";const ps=(f.webkitRelativePath||"").split("/"),fo=window.impCat||(ps.length>1?ps[ps.length-2]:"");let cat=S.cats.find(c=>c.toLowerCase()===fo.toLowerCase());if(!cat&&fo){S.cats.push(fo);cat=fo;renderCats();persist()}const b=await shrink(f);let url;try{url=assets?(await assets.upload(b)).url:await new Promise(r=>{const x=new FileReader;x.onload=()=>r(x.result);x.readAsDataURL(b)})}catch(err){continue}const id="p"+Date.now()+n,p={id,name:f.name.replace(/\.[^.]+$/,"").replace(/[_-]+/g," "),cat:cat||S.cats[0],desc:"",spec:"",ars:"",usd:"",imgs:[url],nameEn:"",descEn:"",t:Date.now()+n};P.unshift(p);renderGrid();try{await db?.doc("products/"+id).set(p)}catch(err){}}$("st").textContent="Listo: "+n+" piezas importadas";e.target.value=""};
+document.addEventListener("dragover",e=>e.preventDefault());document.addEventListener("drop",async e=>{if(!document.body.classList.contains("admin")||e.target.closest("#drop")||e.target.closest("#thumbs"))return;e.preventDefault();const fs=[...e.dataTransfer.files].filter(f=>f.type.startsWith("image/"));if(!fs.length)return;const c=await dlg("¿En qué categoría van estas "+fs.length+" fotos?",false,S.cats);if(!c)return;window.impCat=c;await $("fd").onchange({target:{files:fs,value:""}});window.impCat=null});
+$("ff").onchange=async e=>{const c=await dlg("¿En qué categoría van estas fotos?",false,S.cats);if(!c){e.target.value="";return}window.impCat=c;await $("fd").onchange({target:e.target});window.impCat=null};
+renderCats();tools();Object.keys(DEF).forEach(applyB);renderGrid();
+(async()=>{try{db=await claude.use("db");assets=await claude.use("assets");sample=await claude.use("sample");const u=await claude.use("user");if(u&&u.isOwner())document.body.classList.add("admin")}catch(e){}if(!db)document.body.classList.add("admin");
+ if(!db){$("st").textContent="Modo vista previa: abrí el enlace publicado para guardar";return}
+ try{const c=await db.doc("config/site").get();if(c.exists){S=Object.assign(S,JSON.parse(c.data().data));renderCats();Object.keys(DEF).forEach(applyB)}}catch(e){}
+ db.collection("products").onSnapshot(q=>{P=q.docs.map(d=>d.data()).sort((a,b)=>b.t-a.t);renderGrid()})})();
+</script></body></html>
